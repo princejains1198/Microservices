@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS customer (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    mobile_number VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    updated_by VARCHAR(255) DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS accounts (
+    customer_id INT NOT NULL,
+    account_number INT PRIMARY KEY AUTO_INCREMENT,
+    account_type VARCHAR(100) NOT NULL,
+    branch_address VARCHAR(200) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    updated_by VARCHAR(255) DEFAULT NULL
+);

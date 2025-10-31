@@ -1,0 +1,38 @@
+# Application Configuration for Loans Service
+server:
+  port: 8090
+
+# H2 Database Configuration
+spring:
+    datasource:
+      url: jdbc:h2:mem:testdb
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: ''
+    h2:
+      console:
+        enabled: true
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+    config:
+        import:
+            - "application_qa.yml"
+            - "application_prod.yml"
+    profiles:
+      active:
+       - "qa"
+
+build:
+    version: "3.0"
+
+loans:
+  message: "Message to EazyBank loans related local APIs"
+  contactDetails:
+    name: "Manual samuel - Developer"
+    email: "samuel@eazybank.com"
+  onCallSupport:
+    - (555) 555-7890
+    - (555) 567-1234
