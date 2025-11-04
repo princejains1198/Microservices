@@ -1,0 +1,101 @@
+# Spring Boot application configuration for the Accounts service
+server:
+  port: 8080
+
+# H2 Database Configuration
+spring:
+  application:
+    name: "accounts"
+  profiles:
+    active: "prod"
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    import: "optional:configserver:http://localhost:8071"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+
+
+info:
+  app:
+    name: "Accounts Service"
+    description: "Easy Banking - Accounts Service"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      eazybytes:
+        accounts: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    configs:
+        default:
+            slidingWindowSize: 10
+            permitted-number-of-calls-in-half-open-state: 5
+            failureRateThreshold: 50
+            waitDurationInOpenState: 10000
+  retry:
+    configs:
+        default:
+            maxAttempts: 3
+            waitDuration: 500
+            enable-exponential-backoff: true
+            exponential-backoff-multiplier: 2
+            ignore-exceptions:
+              - java.lang.NullPointerException
+            retry-exceptions:
+              - java.util.concurrent.TimeoutException
+  ratelimiter:
+    configs:
+        default:
+            limit-for-period: 1
+            limit-refresh-period: 5000
+            timeout-duration: 1000
