@@ -1,0 +1,11 @@
+build:
+    version: "1.0"
+
+loans:
+  message: "Message to EazyBank loans related PROD APIs"
+  contactDetails:
+    name: "Linda Green - Product Owner"
+    email: "linda@eazybank.com"
+  onCallSupport:
+    - (777) 777-1234
+    - (777) 888-5678
