@@ -1,0 +1,11 @@
+build:
+    version: "3.0"
+
+loans:
+  message: "Message to EazyBank loans related local APIs"
+  contactDetails:
+    name: "Manual samuel - Developer"
+    email: "samuel@eazybank.com"
+  onCallSupport:
+    - (555) 555-7890
+    - (555) 567-1234
