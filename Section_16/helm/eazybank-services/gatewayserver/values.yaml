@@ -1,0 +1,30 @@
+# This is a YAML-formatted file.
+# Declare Variables to be passed into the templates.
+
+deploymentName: gatewayserver-deployment
+serviceName: gatewayserver
+appLabel: gatewayserver
+appName: gatewayserver
+
+replicaCount: 1
+
+image:
+  repository: princejain1198/gatewayserver
+  tag: s14
+
+containerPort: 8072
+
+service:
+  type: ClusterIP
+  port: 8072
+  targetPort: 8072
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+eureka_enabled: true
+resourceserver_enabled: true
+otel_enabled: true
+kafka_enabled: false
+
+
