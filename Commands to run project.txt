@@ -1,0 +1,155 @@
+1. docker build . -t princejain1198/accounts:s4
+2. docker images (to check how many images are  present in docker)
+3. docker inspect image 5d20(id k 4 character)
+4. docker run -d -p 8080:8080 princejain1198/accounts:s4 (1st instance)
+5. docker run -d -p 8081:8080 princejain1198/accounts:s4 (2nd instance)
+6. docker ps (to check how many containers are  running in docker)
+7. docker ps -a (to check how many containers are in stop state in docker)
+8. docker start a4e3872d745b957f7ad9eccfe5963b9f4dd67359411c34926f476d1f7c376e70 (to run existing docker container which is in stop state with the help of image_id)
+9. docker stop a4e3872d745b957f7ad9eccfe5963b9f4dd67359411c34926f476d1f7c376e70 (to stop existing docker container which is in running state with the help of image_id)
+10. mvn spring-boot:build-image (to create the image with the help of Buildpacks).
+
+
+FOR JIB
+11. mvn compile jib:dockerBuild
+
+12. docker image push docker.io/princejain1198/accounts:s4 (command to push image into docker hub)
+12. docker image pull docker.io/princejain1198/accounts:s4 (command to pull image into docker hub)
+
+13. docker compose up -d 
+(to run all the containers in a same time, but you have to run this command under that service only where "docker-compose.yml" file is present in our case it is present under accounts  so we have run under accounts service "D:\Microservice\Section4\accounts>docker compose up -d")
+
+14. docker compose down (to delete all the running containers in same time, but you have to run this command under that service only where "docker-compose.yml" file is present in our case it is present under accounts  so we have run under accounts service "D:\Microservice\Section4\accounts>docker compose up -d")
+ 
+
+15. docker compose stop (it will stop all the containers which is in running state)
+16. docker compose start (it will start all the containers which is in stop state)
+
+
+git add Section2
+git commit -m "Build Accounts, Loans and Cards microservice"
+git remote add origin https://github.com/princejains1198/Microservice.git
+git push -u origin main
+
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management (command to run RabbitMQ in local cmd)
+
+
+hookdeck login --cli-key 0sxtkf711qvz1kkphn9mgma7n9mmu2vdu67cyvufn6layi5gej (this we have to take from the https://console.hookdeck.com/)
+hookdeck listen 8071 Source --cli-path /monitor
+
+
+# Commands to run MYSQL with the help of DOCKER IMAGES
+
+1. docker run -p 3306:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql (command to run MYSQL in local cmd)
+2. docker run -p 3307:3306 --name loansdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=loansdb -d mysql
+3. docker run -p 3308:3306 --name cardsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cardsdb -d MySQL
+
+Redis in docker 
+1. docker run -p 6379:6379 --name eazyredis -d redis
+
+Keycloack run in docker
+1. docker run -d -p 127.0.0.1:7080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.4.4 start-dev
+
+RabbitMQ run in docker
+1. docker run -d -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
+
+http://localhost:15672/#/queues
+
+Apache Kafka
+1. docker run -p 9092:9092 apache/kafka:4.1.0 (to run kafka in local)
+
+Kubernetes
+1. kubectl config get-contexts
+2. kubectl config get-clusters
+3. kubectl config use-context docker-desktop
+4. kubectl get nodes
+
+Chocolate and Helm
+1.  Get-ExecutionPolicy
+2.  Set-ExecutionPolicy 
+-> Run Get-ExecutionPolicy. If it returns Restricted, then run Set-ExecutionPolicy AllSigned or Set-ExecutionPolicy Bypass -Scope Process.
+3. Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+4. choco or choco -?
+5. choco install kubernetes-helm
+6. helm version
+7. helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+8. helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+9. kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+
+Kubernetes 
+ cd C:\Users\princ\OneDrive\Desktop\K8S\
+1.  kubectl apply -f dashboard-adminuser.yaml
+2.  kubectl apply -f dashboard-rolebinding.yaml
+3.  kubectl -n kubernetes-dashboard create token admin-user
+4.  kubectl apply -f secret.yaml
+5.  kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath="{.data.token}" | base64 -d (run this command in git bash and use the folder k8s)
+6.  kubectl apply -f configserver.yml
+7.  kubectl get deployments
+8.  kubectl get services
+9.  kubectl get replicasets
+10. kubectl get pods
+11. kubectl apply -f 1_keycloak.yml
+12. kubectl apply -f 2_configmaps.yaml
+13. kubectl apply -f 3_configserver.yml
+14. kubectl apply -f 4_eurekaserver.yml
+15. kubectl apply -f 5_accounts.yml
+16. kubectl apply -f 6_loans.yml
+17. kubectl apply -f 7_cards.yml
+18. kubectl apply -f 8_gateway.yml
+19. kubectl delete pod <pod_name>
+20. kubectl get events --sort-by=.metadata.creationTimestamp
+21. kubectl scale deployment accounts-deployment --replicas=1
+22. kubectl describe pod gatewayserver-deployment-6cf488587f-8bpfw (pod name)
+23. kubectl set image deployment gatewayserver-deployment gatewayserver=princejain1198/gatewayserver:s11 --record
+24. kubectl rollout history deployment gatewayserver-deployment
+25. kubectl rollout undo deployment gatewayserver-deployment --to-revision=1
+26. kubectl delete -f 1_keycloak.yml
+27. kubectl delete -f 2_configmaps.yaml
+28. kubectl delete -f 3_configserver.yml
+29. kubectl delete -f 4_eurekaserver.yml
+30. kubectl delete -f 5_accounts.yml
+31. kubectl delete -f 6_loans.yml
+32. kubectl delete -f 7_cards.yml
+33. kubectl delete -f 8_gateway.yml
+
+(Helm chart creation):-
+
+1. helm create eazybank-common
+2. helm dependencies build
+3. helm template .
+4. helm install keycloak keycloak
+5. helm install kafka kafka
+6. helm install prometheus kube-prometheus
+7. helm install loki grafana-loki
+8. helm install tempo grafana-tempo
+9. helm install grafana grafana
+10. helm install eazybank prod-env (to run all the microservice inside the Kubernetes)
+11. helm upgrade eazybank prod-env (to upgrade something like replica of services (instances of the service) etc.)
+12. helm history eazybank
+13. helm rollback eazybank 1
+14. helm uninstall eazybank
+15. helm uninstall keycloak 
+16. helm uninstall kafka 
+17. helm uninstall prometheus 
+18. helm uninstall loki 
+19. helm uninstall tempo 
+20. helm uninstall grafana 
+
+(Client Side Load Balancer).
+1. kubectl apply -f kubernetes-discoveryserver.yml
+2. kubectl delete -f kubernetes-discoveryserver.yml
+
+
+Kubernets in gcp
+1. gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project daring-charmer-479618-d3
+
+
+
+
+
+
+
+
+
+
+
