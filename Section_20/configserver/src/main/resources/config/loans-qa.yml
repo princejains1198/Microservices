@@ -1,0 +1,11 @@
+build:
+    version: "2.0"
+
+loans:
+  message: "Message to EazyBank loans related QA APIs"
+  contactDetails:
+    name: "Alex Johnson - QA Lead"
+    email: "johnson@eazybank.com"
+  onCallSupport:
+    - (666) 345-6789
+    - (666) 987-6543
